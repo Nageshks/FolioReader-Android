@@ -175,7 +175,7 @@ class FolioWebView : WebView {
         Log.d(LOG_TAG, "-> dismissPopupWindow -> " + parentFragment.spineItem.href)
         val wasShowing = popupWindow.isShowing
         if (Looper.getMainLooper().thread == Thread.currentThread()) {
-            if (!wasShowing)
+            if (wasShowing)
                 popupWindow.dismiss()
         } else {
             uiHandler.post { popupWindow.dismiss() }
