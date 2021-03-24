@@ -229,7 +229,6 @@ class FolioWebView : WebView {
     }
 
     fun initViewTextSelection() {
-        var bit = false
         Log.v(LOG_TAG, "-> initViewTextSelection")
 
         val textSelectionMiddleDrawable = ContextCompat.getDrawable(context,
@@ -248,32 +247,23 @@ class FolioWebView : WebView {
 
         viewTextSelection.yellowHighlight.setOnClickListener {
             Log.v(LOG_TAG, "-> onClick -> yellowHighlight")
-            onHighlightColorItemsClicked(HighlightStyle.Yellow, bit)
-            bit = true
+            onHighlightColorItemsClicked(HighlightStyle.Yellow, false)
         }
         viewTextSelection.greenHighlight.setOnClickListener {
             Log.v(LOG_TAG, "-> onClick -> greenHighlight")
-            onHighlightColorItemsClicked(HighlightStyle.Green, bit)
-            bit = true
-
+            onHighlightColorItemsClicked(HighlightStyle.Green, false)
         }
         viewTextSelection.blueHighlight.setOnClickListener {
             Log.v(LOG_TAG, "-> onClick -> blueHighlight")
-            onHighlightColorItemsClicked(HighlightStyle.Blue, bit)
-            bit = true
-
+            onHighlightColorItemsClicked(HighlightStyle.Blue, false)
         }
         viewTextSelection.pinkHighlight.setOnClickListener {
             Log.v(LOG_TAG, "-> onClick -> pinkHighlight")
-            onHighlightColorItemsClicked(HighlightStyle.Pink, bit)
-            bit = true
-
+            onHighlightColorItemsClicked(HighlightStyle.Pink, false)
         }
         viewTextSelection.underlineHighlight.setOnClickListener {
             Log.v(LOG_TAG, "-> onClick -> underlineHighlight")
-            onHighlightColorItemsClicked(HighlightStyle.Underline, bit)
-            bit = true
-
+            onHighlightColorItemsClicked(HighlightStyle.Underline, false)
         }
 
         viewTextSelection.deleteHighlight.setOnClickListener {
