@@ -229,6 +229,7 @@ class FolioWebView : WebView {
     }
 
     fun initViewTextSelection() {
+	// delete highlights with customer bit Rana logic
         Log.v(LOG_TAG, "-> initViewTextSelection")
 
         val textSelectionMiddleDrawable = ContextCompat.getDrawable(context,
