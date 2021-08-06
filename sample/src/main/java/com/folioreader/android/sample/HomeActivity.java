@@ -15,15 +15,11 @@
  */
 package com.folioreader.android.sample;
 
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.folioreader.Config;
@@ -35,15 +31,12 @@ import com.folioreader.ui.base.OnSaveHighlight;
 import com.folioreader.util.AppUtil;
 import com.folioreader.util.OnHighlightListener;
 import com.folioreader.util.ReadPositionListener;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.Bidi;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity
         implements OnHighlightListener, ReadPositionListener, FolioReader.OnClosedListener {
@@ -67,36 +60,31 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                Config config = AppUtil.getSavedConfig(getApplicationContext());
-                if (config == null)
-                    config = new Config();
-                config.setAllowedDirection(Config.AllowedDirection.VERTICAL_AND_HORIZONTAL);
-
-                folioReader.setConfig(config, true)
-                        .openBook(R.raw.aashir);
+                folioReader.setConfig(getConfig(), true).openBook(R.raw.adventures);
             }
         });
 
         findViewById(R.id.btn_assest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ReadPosition readPosition = getLastReadPosition();
-
-                Config config = AppUtil.getSavedConfig(getApplicationContext());
-                if (config == null)
-                    config = new Config();
-                config.setAllowedDirection(Config.AllowedDirection.ONLY_HORIZONTAL);
-
-//                folioReader.setReadPosition(readPosition)
-//                        .setConfig(config, true)
-//                        .openBook("file:///android_asset/TheSilverChair.epub","Arabic","");
+                folioReader.setReadPosition(getLastReadPosition())
+                        .setConfig(getConfig(), true)
+                        .openBook("file:///android_asset/TheSilverChair.epub",
+                                "Arabic","","");
             }
         });
     }
 
-    private ReadPosition getLastReadPosition() {
+    private Config getConfig() {
+        getLastReadPosition();
+        Config config = AppUtil.getSavedConfig(getApplicationContext());
+        if (config == null)
+            config = new Config();
+            config.setAllowedDirection(Config.AllowedDirection.ONLY_HORIZONTAL);
+        return config;
+    }
 
+    private ReadPosition getLastReadPosition() {
         String jsonString = loadAssetTextAsString("read_positions/read_position.json");
         return ReadPositionImpl.createInstance(jsonString);
     }
@@ -178,9 +166,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onHighlight(HighLight highlight, HighLight.HighLightAction type) {
-//        Toast.makeText(this,
-//                "highlight id = " + highlight.getUUID() + " type = " + type,
-//                Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
